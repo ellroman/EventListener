@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listener</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text">
+            <h1>Press Play On Bottom Of Page.</h1>
+        </div>
+        <div class="main"></div>
+        <div class="controller">
+            <div class="album">
+                <img src="./images/Controller-512.png" alt=""/>
+            </div>
+
+            <div class="controls">
+                <div id="playPause"></div>
+                <progress id="progress" max="100" value="0"></progress>
+            </div>
+
+            <div>
+                <progress class="progress" max="100" value="50"></progress>
+            </div>
+        </div>
+        <audio id="audio" src="bensound-memories.mp3"></audio>
+    </div>
+
+
+    <script>
+        document.getElementById('playPause').innerHTML = '<img src="./images/icons8-play-64.png" alt="" onclick="play()" />';
+        const audio = document.getElementById('audio');
+
+        function play(){
+            document.getElementById('playPause').innerHTML = '<img src="./images/icons8-pause-64.png" alt="" onclick="pause()" />';
+            const audio = document.getElementById('audio');
+            audio.play();
+        }
+
+        function pause(){
+            document.getElementById('playPause').innerHTML = '<img src="./images/icons8-play-64.png" alt="" onclick="play()" />';
+            const audio = document.getElementById('audio');
+            audio.pause();
+        }
+
+       /* audio.ontimeupdate = function(){
+            let time = (audio.currentTime/audio.duration)*100;
+            let progress = Math.round(time);
+            document.getElementById('audioProgress').value = progress;
+        }
+        */
+
+        audio.addEventListener("timeupdate", (event)=>{
+            let time = (audio.currentTime/audio.duration)*100;
+            let progress = Math.round(time);
+            document.getElementById("progress").value=progress;
+        })
+
+        audio.volume = .03
+
+    </script>
+    </body>
+</html>
